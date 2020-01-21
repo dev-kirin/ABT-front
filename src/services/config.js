@@ -1,5 +1,5 @@
 export const CONFIG = {
-  app_host: 'http://localhost:3001',
+  app_host: 'http://abt.local:3001',
 }
 
 export default {

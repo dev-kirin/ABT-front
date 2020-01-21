@@ -11,7 +11,7 @@ import FormControl from '@material-ui/core/FormControl'
 import InputLabel from '@material-ui/core/InputLabel'
 import Frame from 'react-frame-component'
 
-@connect(({ project, loading }) => ({ project, loading }))
+@connect(({ loading }) => ({ loading }))
 
 
 class Page extends Component {
@@ -36,8 +36,6 @@ class Page extends Component {
 
   render(){
     let self = this
-    // let model = this.props.model
-    // let project = model.project
 
     let html = self.getHtml()
 

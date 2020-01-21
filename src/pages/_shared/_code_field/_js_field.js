@@ -28,6 +28,7 @@ class Model extends Component {
             lineNumbers: true
           }}
           onChange={self.props.onChange}
+          onBlur={self.props.onBlur}
         />
       </>
     )

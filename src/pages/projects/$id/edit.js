@@ -3,11 +3,7 @@ import { connect } from 'dva'
 
 import ProjectForm from '../_shared/_form'
 
-@connect(({ project, loading }) => ({ 
-  project,
-  loading,
-}))
-
+@connect(({ loading }) => ({ loading }))
 
 class Page extends Component {
   constructor(props) {
@@ -21,15 +17,13 @@ class Page extends Component {
     let projectID = this.props.match.params.id
     this.props.dispatch({
       type: 'project/fetch',
-      payload: {
-        id: projectID
-      }
+      projectID,
     })
   }
 
   render(){
     return(
-      <div style={{ padding: 10 }}>
+      <div style={{ padding: 8 }}>
         <ProjectForm />
       </div>
     )

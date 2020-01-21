@@ -12,7 +12,7 @@ import InputLabel from '@material-ui/core/InputLabel'
 
 import Lightbox from './_action_lightbox'
 
-@connect(({ project, loading }) => ({ project, loading }))
+@connect(({ loading }) => ({ loading }))
 
 
 class Page extends Component {
@@ -22,20 +22,20 @@ class Page extends Component {
     this.handleChange = this.handleChange.bind(this)
   }
 
-  handleChange(event, key){
+  handleChange({event, key, project}){
     let val = event.target.value
-    let payload = {update_attr: {project_action: {}}}
-    payload.update_attr.project_action[key] = val
-
+    project.project_action[key] = val
     this.props.dispatch({
-      type: 'project/update',
-      payload: payload
+      type: 'project/update_change_project',
+      project
     })
   }
 
   getHtml(){
     let self = this
+    let project = self.props.project
     let action = self.props.project_action
+    
 
     let basicForm = (
       <Grid item xs={12} md={12}>
@@ -43,7 +43,7 @@ class Page extends Component {
           <InputLabel htmlFor="action_type">{formatMessage({ id: 'label.action_type' })}</InputLabel>
           <Select
             value={action.action_type}
-            onChange={(e)=>{self.handleChange(e, 'action_type')}}
+            onChange={(event)=>{self.handleChange({event, key:'action_type', project})}}
           >
             <MenuItem value=''></MenuItem>
             <MenuItem value='lightbox'>Lightbox</MenuItem>
@@ -55,7 +55,7 @@ class Page extends Component {
     let form = ""
 
     if(action.action_type == 'lightbox'){
-      form = (<Lightbox project_action={action} />)
+      form = (<Lightbox project={project} project_action={action} />)
     }
 
     let html = (

@@ -6,8 +6,8 @@ export default {
     return request.get({path: `/customer-api/v1/clients/${clientID}/projects`})
   },
 
-  queryFindByID: ({ id }) => {
-    return request.get({path: `/customer-api/v1/projects/${id}`})
+  queryFindByID: ({ projectID }) => {
+    return request.get({path: `/customer-api/v1/projects/${projectID}`})
   },
 
   mutateSave: ({ project }) => {

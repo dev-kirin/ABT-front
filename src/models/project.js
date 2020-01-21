@@ -1,5 +1,6 @@
 import projectService from '@/services/project'
 import deepmerge from 'deepmerge'
+import UUID from 'uuid/v4'
 
 export default {
   namespace: 'project',
@@ -18,51 +19,70 @@ export default {
   },
 
   effects: {
-    *fetch({ payload }, { call, put }) {
-      const response = yield call(projectService.queryFindByID,{ id: payload.id })
+    *fetch({ projectID }, { call, put }) {
+      const response = yield call(projectService.queryFindByID,{ projectID })
+      let respondedProject = response.data
       yield put({
         type: 'show',
-        payload: response
+        project: respondedProject
       })
     },
 
-    *update({ payload }, { call, put }) {
-      yield put({
-        type: 'after_upadte',
-        payload: payload
-      })
-    },
-
-    *save({ payload }, { call, put }) {
-      let project = payload.project
+    *save({ project }, { call, put }) {
       const response = yield call(projectService.mutateSave,{ project })
+      let respondedProject = response.data
       yield put({
         type: 'show',
-        payload: response
+        project: respondedProject
       })
     },
+
+
+    *update_change_project({ project }, { call, put }) {
+      yield put({
+        type: 'show',
+        project,
+      })
+    },
+
+    *update_add_project_trigger({ project }, { call, put }) {
+      let newId = `temp-${UUID()}`
+      
+      let trigger = {
+        id: newId,
+        match_type: '',
+        match_detail: {
+          relation: '',
+          conditions: []
+        }
+      }
+      project.project_triggers.push(trigger)
+
+      yield put({
+        type: 'show',
+        project,
+      })
+    },
+
+    *update_delete_project_trigger({ project, trigger }, { call, put }) {
+      let foundIndex = project.project_triggers.findIndex((i)=>{return i.id==trigger.id})
+      project.project_triggers.splice(foundIndex, 1)
+      yield put({
+        type: 'show',
+        project,
+      })
+    },
+
   },
 
   reducers: {
-    show(state, action) {
-      let project = action.payload.data
+    show(state, {project}) {
       let d = {
         ...state,
-        project: project,
+        project
       }
       return d
     },
 
-    after_upadte(state, action) {
-      let project = state.project
-      let update_attr = action.payload.update_attr
-      let result = deepmerge(project, update_attr)
-     
-      let d = {
-        ...state,
-        project: result
-      }
-      return d
-    },
   },
 }

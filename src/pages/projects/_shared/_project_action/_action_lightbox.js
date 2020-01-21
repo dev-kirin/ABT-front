@@ -11,7 +11,7 @@ import TextField from '@material-ui/core/TextField'
 import CodeHtmlField from '@/pages/_shared/_code_field/_html_field'
 
 
-@connect(({ project, loading }) => ({ project, loading }))
+@connect(({ loading }) => ({ loading }))
 
 
 class Page extends Component {
@@ -21,23 +21,22 @@ class Page extends Component {
     this.handleCodeChange = this.handleCodeChange.bind(this)
   }
 
-  handleCodeChange(editor, data, val, key) {
-    let payload = {update_attr: {project_action: {}}}
+  handleCodeChange({editor, key, project}) {
+    let val = editor.getValue()
 
     if(key == 'action_detail.html'){
-      payload.update_attr.project_action.action_detail = {
-        html: val
-      }
+      project.project_action.action_detail.html = val
     }
 
     this.props.dispatch({
-      type: 'project/update',
-      payload: payload
+      type: 'project/update_change_project',
+      project
     })
   }
 
   getActionHtml(){
     let self = this
+    let project = self.props.project
     let action = self.props.project_action
     let html = (
       <>
@@ -47,7 +46,7 @@ class Page extends Component {
           <InputLabel shrink={true}>{formatMessage({ id: 'label.html' })}</InputLabel>
           <CodeHtmlField 
             val={action.action_detail.html} 
-            onChange={(editor, data, val)=>{self.handleCodeChange(editor, data, val, 'action_detail.html')}} 
+            onBlur={(editor, data, val)=>{self.handleCodeChange({editor, key:'action_detail.html', project})}} 
           />
         </Grid>
      </>
