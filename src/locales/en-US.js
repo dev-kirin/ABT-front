@@ -1,0 +1,16 @@
+export default {
+  'index.start': 'Getting Started',
+  'label.title': 'Title',
+  'label.action_type': 'Action Type',
+  'label.html': 'HTML',
+  'label.match_type': 'Match Type',
+  'label.relation': 'Relation',
+  'label.rule': 'Rule',
+  'label.str': 'Text',
+  'label.trigger': 'Trigger',
+  'title.edit_project': 'Edit Project',
+  'title.preview': 'Preview',
+  'title.basic_info': 'Basic Info',
+  'title.triggers': 'Triggers',
+  'title.action': 'Action',
+}
