@@ -134,7 +134,7 @@ class Page extends Component {
 
   projectTriggerAddHtml({self, project}){
     return(
-      <Grid container spacing={1} alignItems="flex-end">
+      <Grid container alignItems="flex-end">
         <Grid item xs={12} md={12}>
           <Button variant="contained" size="small"
             fullWidth

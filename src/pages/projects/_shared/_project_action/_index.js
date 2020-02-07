@@ -34,7 +34,7 @@ class Page extends Component {
   getHtml(){
     let self = this
     let project = self.props.project
-    let action = self.props.project_action
+    let action = self.props.project.project_action
     
 
     let basicForm = (

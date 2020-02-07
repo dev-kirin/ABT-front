@@ -7,6 +7,7 @@ export default {
 
   state: {
     project: {
+      pclient_id: '',
       id: '',
       title: '',
       status: '',
@@ -14,11 +15,34 @@ export default {
       project_action: {
         action_type: '',
         action_detail: {},
+        callback_js: {},
       },
     },
   },
 
   effects: {
+    *init({project}, {call, put}){
+      const initProject = {
+        pclient_id: '',
+        id: '',
+        title: '',
+        status: '',
+        project_triggers: [],
+        project_action: {
+          action_type: '',
+          action_detail: {},
+          callback_js: {},
+        },
+      }
+
+      initProject.pclient_id = project.pclient_id
+
+      yield put({
+        type: 'show',
+        project: initProject
+      })
+    },
+
     *fetch({ projectID }, { call, put }) {
       const response = yield call(projectService.queryFindByID,{ projectID })
       let respondedProject = response.data
@@ -29,6 +53,7 @@ export default {
     },
 
     *save({ project }, { call, put }) {
+      delete project["errors"]
       const response = yield call(projectService.mutateSave,{ project })
       let respondedProject = response.data
       yield put({

@@ -13,4 +13,14 @@ export default {
   'title.basic_info': 'Basic Info',
   'title.triggers': 'Triggers',
   'title.action': 'Action',
+  'title.active': 'Active',
+  'title.create_project': 'Create Project',
+  'label.save': 'Save',
+  'label.back': 'Back',
+
+  'label.before_enter_js': 'Before Enter JS',
+  'label.after_enter_js': 'After Enter JS',
+  'label.before_close_js': 'Before Close JS',
+  'label.after_close_js': 'After Close JS',
+  'label.max_enters_per_session': 'Max occured per session',
 }

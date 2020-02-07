@@ -2,8 +2,8 @@ import request from '@/services/request'
 
 export default {
 
-  queryFindByClientID: ({ clientID }) => {
-    return request.get({path: `/customer-api/v1/clients/${clientID}/projects`})
+  queryFindByClientID: ({ pclientID }) => {
+    return request.get({path: `/customer-api/v1/pclients/${pclientID}/projects`})
   },
 
   queryFindByID: ({ projectID }) => {

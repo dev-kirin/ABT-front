@@ -1,4 +1,4 @@
-import pclientService from '@/services/pclient'
+import projectService from '@/services/project'
 
 export default {
   namespace: 'pclient',
@@ -7,15 +7,17 @@ export default {
     pclient: {
       id: '',
       name: '',
+      projects: []
     }
   },
 
   effects: {
-    *fetch({ payload }, { call, put }) {
-      const response = yield call(pclientService.queryFindByID,{ id: payload.id });
+    *fetch({ pclientID }, { call, put }) {
+      const response = yield call(projectService.queryFindByClientID,{ pclientID: pclientID });
+      let respondedPclient = response.data
       yield put({
         type: 'show',
-        payload: response
+        payload: respondedPclient
       });
     },
   },

@@ -1,37 +1,31 @@
 import { Component } from 'react'
 import { connect } from 'dva'
 
-import ProjectForm from '../_shared/_form'
+import ProjectForm from '@/pages/projects/_shared/_form'
 
-@connect(({ loading }) => ({ loading }))
-
+@connect(({ project, loading }) => ({ projectModel:project, loading }))
 class Page extends Component {
   constructor(props) {
     super(props)
 
     this.initProject()
-    this.fetchProject()
   }
 
   initProject(){
-    let project = {}
+    let pclientID = this.props.match.params.id
+    let project = {
+      pclient_id: pclientID
+    }
+
     this.props.dispatch({
       type: 'project/init',
       project
     })
   }
 
-  fetchProject(){
-    let projectID = this.props.match.params.id
-    this.props.dispatch({
-      type: 'project/fetch',
-      projectID,
-    })
-  }
-
   render(){
     return(
-      <div style={{ padding: "20px 8px 8px 8px" }}>
+      <div style={{ padding: 8 }}>
         <ProjectForm />
       </div>
     )
