@@ -3,7 +3,7 @@ import { connect } from 'dva'
 import { formatMessage } from 'umi-plugin-locale'
 
 import {UnControlled as CodeMirror} from 'react-codemirror2'
-import {CodeMirrorMode} from 'codemirror/mode/htmlmixed/htmlmixed'
+import {CodeMirrorMode} from 'codemirror/mode/javascript/javascript'
 import stylesCodemirror from 'codemirror/lib/codemirror.css'
 import stylesMaterial from 'codemirror/theme/material.css'
 import styles from './styles.scss'
@@ -16,20 +16,28 @@ class Model extends Component {
   }
 
   formatSelection(code) {
-    let beautify = require("js-beautify").html
+    let beautify = require("js-beautify").js
     return beautify(code, {indent_size: 2})
   }
 
   render(){
-    let self = this
-    let val = self.formatSelection(self.props.val)
+    const self = this
+    let val = self.props.val
+    try{
+      if (typeof(val) == 'object'){
+        val = JSON.stringify(val)
+      }
+    } catch(err){}
+
+    val = self.formatSelection(val)
+
     return(
       <>
         <CodeMirror
           value={val}
           className={styles['react-codemirror2']}
           options={{
-            mode: 'htmlmixed',
+            mode: 'json',
             theme: 'material',
             lineNumbers: true
           }}

@@ -14,8 +14,12 @@ export default {
       project_triggers: [],
       project_action: {
         action_type: '',
-        action_detail: {},
+        action_detail: {
+          html: '',
+          css: {}
+        },
         callback_js: {},
+        exit_condition: 'closed',
       },
     },
   },
@@ -30,8 +34,12 @@ export default {
         project_triggers: [],
         project_action: {
           action_type: '',
-          action_detail: {},
+          action_detail: {
+            html: '',
+            css: {}
+          },
           callback_js: {},
+          exit_condition: 'closed',
         },
       }
 
@@ -64,6 +72,33 @@ export default {
 
 
     *update_change_project({ project }, { call, put }) {
+      if(project.project_action.action_type == 'lightbox'){
+        if(!project.project_action.max_enters_per_session){
+          project.project_action.max_enters_per_session = 1
+        }
+
+        const exit_condition = project.project_action.exit_condition
+        if(!exit_condition || exit_condition==''){
+          project.project_action.exit_condition = 'closed'
+        }
+        const css = project.project_action.action_detail.css
+        if(!css || Object.keys(css).length === 0){
+          project.project_action.action_detail.css = {
+            background: "white",
+            border: "1px solid black",
+            height: "450px",
+            width: "500px",
+          }
+        }
+        else{
+          if (typeof(css) == 'string'){
+            try{
+              const _css = JSON.parse(css)
+              project.project_action.action_detail.css = _css
+            }catch(err){}
+          }
+        }
+      }
       yield put({
         type: 'show',
         project,

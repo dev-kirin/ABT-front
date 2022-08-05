@@ -40,6 +40,18 @@ class Page extends Component {
 
     if(key == 'match_type'){
       trigger.match_type = val
+      if(val == 'exit_intent'){
+        trigger.match_detail.relation = 'or'
+        trigger.match_detail.conditions = [{'str': 'top'}]
+      }
+      else if(val == 'device_type'){
+        trigger.match_detail.relation = 'or'
+        trigger.match_detail.conditions = [{'str': 'desktop'}]
+      }
+      else if(val == 'url'){
+        trigger.match_detail.relation = 'or'
+        trigger.match_detail.conditions = [{'rule': 'contains', 'str': ''}]
+      }
     }
 
     this.props.dispatch({

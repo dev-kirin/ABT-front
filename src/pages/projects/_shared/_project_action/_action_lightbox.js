@@ -8,9 +8,12 @@ import Divider from '@material-ui/core/Divider'
 import FormControl from '@material-ui/core/FormControl'
 import InputLabel from '@material-ui/core/InputLabel'
 import TextField from '@material-ui/core/TextField'
+import Select from '@material-ui/core/Select'
+import MenuItem from '@material-ui/core/MenuItem'
 
 import CodeHtmlField from '@/pages/_shared/_code_field/_html_field'
 import CodeJSField from '@/pages/_shared/_code_field/_js_field'
+import CodeJsonField from '@/pages/_shared/_code_field/_json_field'
 
 
 @connect(({ loading }) => ({ loading }))
@@ -29,6 +32,13 @@ class Page extends Component {
 
     if(key == 'action_detail.html'){
       action.action_detail.html = val
+    }
+    else if(key == 'action_detail.css'){
+      try{
+        action.action_detail.css = JSON.parse(val)
+      } catch(err){
+
+      }
     }
     else if(key == 'callback_js.before_enter'){
       action.callback_js.before_enter = val
@@ -67,19 +77,19 @@ class Page extends Component {
     let action = self.props.project.project_action
     let html = (
       <>
-        <Box m={5} />
+        <Box m={1} />
 
         <Grid item xs={12} md={12}>
-          <Grid item xs={12} md={12}>
-            <TextField
-              label={formatMessage({ id: 'label.max_enters_per_session' })}
-              value={action.max_enters_per_session}
-              onChange={(event)=>{self.handleChange({event, key:'max_enters_per_session', project, action})}}
-              type="text"
-              fullWidth
-            />
-          </Grid>
-          <Box mt={2} mb={4}></Box>
+          <TextField
+            label={formatMessage({ id: 'label.max_enters_per_session' })}
+            type="Number"
+            value={action.max_enters_per_session}
+            onChange={(event)=>{self.handleChange({event, key:'max_enters_per_session', project, action})}}
+            type="text"
+            fullWidth
+          />
+
+          <Box m={1} />
 
           <InputLabel shrink={true}>{formatMessage({ id: 'label.html' })}</InputLabel>
           <CodeHtmlField 
@@ -87,11 +97,23 @@ class Page extends Component {
             onBlur={(editor, data, val)=>{self.handleCodeChange({editor, key:'action_detail.html', project, action})}} 
           />
 
+          <Box m={1} />
+
+          <InputLabel shrink={true}>{formatMessage({ id: 'label.box_css' })}</InputLabel>
+          <CodeJsonField 
+            val={action.action_detail.css} 
+            onBlur={(editor, data, val)=>{self.handleCodeChange({editor, key:'action_detail.css', project, action})}} 
+          />
+
+          <Box m={1} />
+
           <InputLabel shrink={true}>{formatMessage({ id: 'label.before_enter_js' })}</InputLabel>
           <CodeJSField 
             val={action.callback_js.before_enter} 
             onBlur={(editor, data, val)=>{self.handleCodeChange({editor, key:'callback_js.before_enter', project, action})}} 
           />
+
+          <Box m={1} />
 
           <InputLabel shrink={true}>{formatMessage({ id: 'label.after_enter_js' })}</InputLabel>
           <CodeJSField 
@@ -99,11 +121,7 @@ class Page extends Component {
             onBlur={(editor, data, val)=>{self.handleCodeChange({editor, key:'callback_js.after_enter', project, action})}} 
           />
 
-          <InputLabel shrink={true}>{formatMessage({ id: 'label.before_close_js' })}</InputLabel>
-          <CodeJSField 
-            val={action.callback_js.before_close} 
-            onBlur={(editor, data, val)=>{self.handleCodeChange({editor, key:'callback_js.before_close', project, action})}} 
-          />
+          <Box m={1} />
 
           <InputLabel shrink={true}>{formatMessage({ id: 'label.after_close_js' })}</InputLabel>
           <CodeJSField 

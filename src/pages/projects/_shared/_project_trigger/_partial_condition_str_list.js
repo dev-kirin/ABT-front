@@ -32,7 +32,7 @@ class Page extends Component {
   }
 
   handleAddCondition({event, project, trigger}){
-    let condition = {rule: 'or', str: ''}
+    let condition = {str: ''}
     trigger.match_detail.conditions.push(condition)
     this.props.dispatch({
       type: 'project/update_change_project',

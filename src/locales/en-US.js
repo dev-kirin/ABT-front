@@ -3,6 +3,7 @@ export default {
   'label.title': 'Title',
   'label.action_type': 'Action Type',
   'label.html': 'HTML',
+  'label.box_css': 'Box CSS',
   'label.match_type': 'Match Type',
   'label.relation': 'Relation',
   'label.rule': 'Rule',
@@ -22,5 +23,7 @@ export default {
   'label.after_enter_js': 'After Enter JS',
   'label.before_close_js': 'Before Close JS',
   'label.after_close_js': 'After Close JS',
-  'label.max_enters_per_session': 'Max occured per session',
+  'label.max_enters_per_session': 'Max occurs per session',
+  'label.exit_condition': 'Exit condition',
+
 }
