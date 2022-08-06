@@ -15,10 +15,10 @@ class Model extends Component {
     super(props)
   }
 
-  formatSelection(code) {
-    let beautify = require("js-beautify").js
-    return beautify(code, {indent_size: 2})
-  }
+  // formatSelection(code) {
+  //   let beautify = require("js-beautify").js
+  //   return beautify(code, {indent_size: 2})
+  // }
 
   render(){
     const self = this
@@ -29,7 +29,7 @@ class Model extends Component {
       }
     } catch(err){}
 
-    val = self.formatSelection(val)
+    // val = self.formatSelection(val)
 
     return(
       <>
